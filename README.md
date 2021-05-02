@@ -46,7 +46,7 @@ A: This is due to mipmapping and materiels. I could make them sharper, but this 
 
 ## Credits
 [Aero_](https://github.com/AeroWidescreen) : Creator of NFSMW2012 HD Effects.  
-[ThirteenAG] (https://github.com/ThirteenAG) : Creator of Ultimate-ASI-Loader.  
+[ThirteenAG](https://github.com/ThirteenAG) : Creator of Ultimate-ASI-Loader.  
 
 ## Thanks
 [BadassBaboon](https://www.youtube.com/channel/UC3e-Xp4oPzNu06hxy2242Gg) : Beta testing and feedback.  
