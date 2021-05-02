@@ -12,14 +12,17 @@ WaterReflectionRes : Controls the resolution of water reflections.
 ShadowRes : Controls the resolution of world shadows.  
 HeadlightShadowRes : Controls the resolution of shadows casted by headlights.  
 ReflectionShadowRes : ontrols the resolution of shadows used in reflections.   
+
 WorldDistance : Controls the draw distance of the entire game world.  
 WaterReflectionDistance : Controls the draw distance of water reflections.  
 VehicleReflectionDistance : Controls the draw distance of vehicle reflections.    
+
 CinematicMode : Enables a hidden setting that improves the level of detail and quality of various effects.  
 AutoRefreshGraphics : Solves an issue that caused grass, bushes, and trees to not render until the resolution was changed.  
 MotionBlurStrength : Controls the intensity of the motion blur effect and improves consistency.  
 SetReflectionShadow : Allows users to enable or disable reflection shadows without affecting other shadows.  
 SetDOF : Allows users to enable or disable depth of field without affecting motion blur.    
+
 ToggleHUD : Determines if the HUD is enabled at launch.  
 ToggleHUDhotkey : Controls the ToggleHUD setting while playing.  
 ToggleScreenDirt : Determines if the Screen Dirt effect is enabled at launch.  
