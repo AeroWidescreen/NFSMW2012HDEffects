@@ -29,7 +29,7 @@ ToggleScreenDirt : Determines if the Screen Dirt effect is enabled at launch.
 ToggleScreenDirthotkey : Controls the ToggleScreenDirt setting while playing.    
 
 ## FAQ
-Q: What version of the game is this compatibile with?  
+Q: What version of the game is this compatible with?  
 A: This has been tested using the official Steam and Origin releases, version 1.5.  
 
 Q: What are the system requirements?  
@@ -41,11 +41,11 @@ A: All settings can be adjusted in the INI file. If your PC was already capable 
 Q: What is CinematicMode?  
 A: It's a hidden setting that improves the graphics beyond what was originally possible. I suspect it was used for creating trailers and screenshots based on its behavior.   
 
-Q: Does CinamticMode allow me to control the camera?  
+Q: Does CinematicMode allow me to control the camera?  
 A: No, it improves the graphics. It does nothing else as far as I'm aware. 
 
 Q: Why do reflections still look blurry when viewed at a distance?  
-A: This is due to mipmapping and materiels. I could make them sharper, but this will effectively break the way the materials are rendered.  
+A: This is due to mipmapping and materials. I could make them sharper, but this will effectively break the way the materials are rendered.  
 
 ## Credits
 [Aero_](https://github.com/AeroWidescreen) : Creator of NFSMW2012 HD Effects.  
