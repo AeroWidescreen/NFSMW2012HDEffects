@@ -10,8 +10,8 @@
 VehicleReflectionRes : Controls the resolution of vehicle reflections.  
 WaterReflectionRes : Controls the resolution of water reflections.  
 ShadowRes : Controls the resolution of world shadows.  
-HeadlightShadowRes : Controls the resolution of shadows casted by headlights.  
-ReflectionShadowRes : ontrols the resolution of shadows used in reflections.   
+HeadlightShadowRes : Controls the resolution of shadows cast by headlights.  
+ReflectionShadowRes : Controls the resolution of shadows used in reflections.   
 
 WorldDistance : Controls the draw distance of the entire game world.  
 WaterReflectionDistance : Controls the draw distance of water reflections.  
