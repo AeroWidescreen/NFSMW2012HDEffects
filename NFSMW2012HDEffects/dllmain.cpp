@@ -235,6 +235,7 @@ void Init()
 			injector::WriteMemory(0x4143F8, &CinematicBool, true); // Redundant
 			injector::WriteMemory(0x4146A2, &CinematicBool, true); // Redundant
 			injector::WriteMemory(0x415B06, &CinematicBool, true); // Disables headlightt shadows and overwrites other settings
+			injector::WriteMemory(0x571AC3, &CinematicBool, true); // Causes freeze when loading a race and some cars
 			*/
 			injector::WriteMemory(0x414901, &CinematicBool, true);
 			injector::WriteMemory(0x4149B4, &CinematicBool, true);
@@ -245,7 +246,6 @@ void Init()
 			injector::WriteMemory(0x538AE1, &CinematicBool, true);
 			injector::WriteMemory(0x54F0E7, &CinematicBool, true);
 			injector::WriteMemory(0x55002E, &CinematicBool, true);
-			injector::WriteMemory(0x571AC3, &CinematicBool, true);
 			injector::WriteMemory(0x8940C8, &CinematicBool, true);
 			injector::WriteMemory(0x8940C8, &CinematicBool, true);
 			injector::WriteMemory(0x89F28E, &CinematicBool, true);
