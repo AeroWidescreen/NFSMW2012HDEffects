@@ -57,7 +57,7 @@ A: I don't support multiplayer cheating of any kind. This feature was added to i
 [ThirteenAG](https://github.com/ThirteenAG) : Creator of Ultimate-ASI-Loader.  
 
 ## Thanks
-[mRally2](https://nfsmods.xyz/usermods/3237)
-[Brawltendo](https://github.com/Brawltendo)
-[BadassBaboon](https://www.youtube.com/channel/UC3e-Xp4oPzNu06hxy2242Gg)
-[Defy](https://nfsmods.xyz/user/57)
+[mRally2](https://nfsmods.xyz/usermods/3237)  
+[Brawltendo](https://github.com/Brawltendo)  
+[BadassBaboon](https://www.youtube.com/channel/UC3e-Xp4oPzNu06hxy2242Gg)  
+[Defy](https://nfsmods.xyz/user/57)  
