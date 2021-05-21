@@ -5,20 +5,21 @@
 #include <cstdint>
 #include "..\includes\IniReader.h"
 #include <d3d9.h>
-#include "settings.h""
+#include "settings.h"
+#include "vehicles.h"
 #include "assembly.h"
 
 void Init()
 {
-
 	// Read values from .ini
 	CIniReader iniReader("NFSMW2012HDEffects.ini");
 
-	// Debug
-	Resolution = iniReader.ReadInteger("DEBUG", "Resolution", 1);
-	ViewDistance = iniReader.ReadInteger("DEBUG", "ViewDistance", 1);
-	General = iniReader.ReadInteger("DEBUG", "General", 1);
-	Hotkeys = iniReader.ReadInteger("DEBUG", "Hotkeys", 1);
+	// Main
+	Resolution = iniReader.ReadInteger("MAIN", "Resolution", 1);
+	ViewDistance = iniReader.ReadInteger("MAIN", "ViewDistance", 1);
+	Gameplay = iniReader.ReadInteger("MAIN", "Gameplay", 1);
+	General = iniReader.ReadInteger("MAIN", "General", 1);
+	Hotkeys = iniReader.ReadInteger("MAIN", "Hotkeys", 1);
 
 	// Resolution
 	VehicleReflectionRes = iniReader.ReadInteger("RESOLUTION", "VehicleReflectionRes", 1024);
@@ -32,9 +33,15 @@ void Init()
 	WaterReflectionDistance = iniReader.ReadFloat("VIEW DISTANCE", "WaterReflectionDistance", 1000.0f);
 	VehicleReflectionDistance = iniReader.ReadFloat("VIEW DISTANCE", "VehicleReflectionDistance", 500.0f);
 
+	// Gameplay
+	EnableHiddenCameras = iniReader.ReadInteger("GAMEPLAY", "EnableHiddenCameras", 1);
+	TimeCycleSpeed = iniReader.ReadFloat("GAMEPLAY", "TimeCycleSpeed", 1.0f);
+	WreckResistance = iniReader.ReadFloat("GAMEPLAY", "WreckResistance", 1.0f);
+
 	// General
 	CinematicMode = iniReader.ReadInteger("GENERAL", "CinematicMode", 1);
 	AutoRefreshGraphics = iniReader.ReadInteger("GENERAL", "AutoRefreshGraphics", 1);
+	HighShadowRefreshRate = iniReader.ReadInteger("GENERAL", "HighShadowRefreshRate", 1);
 	MotionBlurStrength = iniReader.ReadFloat("GENERAL", "MotionBlurStrength", 5.0f);
 	SetReflectionShadow = iniReader.ReadInteger("GENERAL", "SetReflectionShadow", -1);
 	SetDOF = iniReader.ReadInteger("GENERAL", "SetDOF", -1);
@@ -44,6 +51,14 @@ void Init()
 	ToggleHUDhotkey = iniReader.ReadInteger("HOTKEYS", "ToggleHUDhotkey", 117); // F6
 	ToggleScreenDirt = iniReader.ReadInteger("GENERAL", "ToggleScreenDirt", 1);
 	ToggleScreenDirthotkey = iniReader.ReadInteger("HOTKEYS", "ToggleScreenDirthotkey", 118); // F7
+	ToggleTimeOfDayhotkey = iniReader.ReadInteger("HOTKEYS", "ToggleTimeOfDayhotkey", 119); // F8
+
+
+	// Multiplayer Check 
+	{
+		injector::MakeJMP(0x4C1EC5, MultiplayerCheckCodeCave, true);
+		injector::MakeNOP(0x4C1ECA, 4, true);
+	}
 
 	if (Resolution)
 	{
@@ -224,25 +239,79 @@ void Init()
 		}
 	}
 
+	if (Gameplay)
+	{
+		if (EnableHiddenCameras)
+		{
+			// Discovered by _mRally2
+			injector::MakeCALL(0x846922, HiddenCameraCodeCave);
+			injector::MakeNOP(0x0846927, 23, true);
+			// Corrected Hood Cam values
+			injector::MakeCALL(0x5C4830, Front_HoodCamSettingsCodeCave);
+			injector::MakeNOP(0x5C4835, 13, true);
+			injector::MakeCALL(0x5C4854, Rear_HoodCamSettingsCodeCave);
+			injector::MakeNOP(0x5C4859, 13, true);
+			// Prevents HUD from disappearing when using Hood Cam
+			injector::WriteMemory<uint16_t>(0x5DADB2, 0x00B0, true); // mov al,00
+			injector::MakeNOP(0x5DADB4, 1, true);
+		}
+
+		if (TimeCycleSpeed >= 0)
+		{
+			TimeCycleMultiplier = TimeCycleSpeed;
+			
+			if (TimeCycleMultiplier > 8.0f)
+			{
+				TimeCycleMultiplier = 8.0f;
+			}
+
+			injector::MakeCALL(0x8B4C1A, TimeCycleSpeedCodeCave);
+			injector::MakeNOP(0x8B4C1F, 1, true);
+		}
+
+		if (WreckResistance >= 0)
+		{
+			WreckResistanceMultiplier = WreckResistance;
+
+			if (WreckResistanceMultiplier > 4.0f)
+			{
+				WreckResistanceMultiplier = 4.0f;
+			}
+
+			injector::MakeCALL(0x8FFBC8, WreckResistanceCodeCave1);
+			injector::MakeNOP(0x8FFBCD, 7, true);
+			injector::MakeCALL(0x8FFBDB, WreckResistanceCodeCave2);
+			injector::MakeNOP(0x8FFBE0, 5, true);
+			injector::MakeCALL(0x8FFBEC, WreckResistanceCodeCave3);
+			injector::MakeNOP(0x8FFBF1, 5, true);
+			injector::MakeCALL(0x8FFC00, WreckResistanceCodeCave4);
+			injector::MakeNOP(0x8FFC05, 3, true);
+			injector::MakeCALL(0x8FFC08, WreckResistanceCodeCave5);
+			injector::MakeNOP(0x8FFC0D, 5, true);
+		}
+	}
+
 	if (General)
 	{
 		if (CinematicMode)
 		{
-			injector::WriteMemory<uint32_t>(0x8C82FF, 0x00000000, true); // Improves vehicle reflection LOD
-			static BYTE CinematicBool = CinematicMode;
-			/*
-			injector::WriteMemory<uint8_t>(0x010EB850, 0x01, true); // Writes directly to "cinematic" address. Don't do this.
-			injector::WriteMemory(0x4143F8, &CinematicBool, true); // Redundant
-			injector::WriteMemory(0x4146A2, &CinematicBool, true); // Redundant
-			injector::WriteMemory(0x415B06, &CinematicBool, true); // Disables headlightt shadows and overwrites other settings
-			injector::WriteMemory(0x571AC3, &CinematicBool, true); // Causes freeze when loading a race and some cars
-			*/
+			if (CinematicMode >= 2)
+			{
+				// Improves vehicle reflection LOD
+				injector::WriteMemory<uint32_t>(0x8C82FF, 0x04000000, true);
+				injector::WriteMemory<uint32_t>(0x8C8304, 0x00008C00, true);
+				// Improves water reflection LOD
+				injector::WriteMemory<uint32_t>(0x8C8AD7, 0x04000000, true);
+				injector::WriteMemory<uint32_t>(0x8C8ADC, 0x00008C00, true);
+			}
+			
+			// CinemeticMode
+			static bool CinematicBool = CinematicMode;
 			injector::WriteMemory(0x414901, &CinematicBool, true);
 			injector::WriteMemory(0x4149B4, &CinematicBool, true);
 			injector::WriteMemory(0x414E58, &CinematicBool, true);
 			injector::WriteMemory(0x496ECE, &CinematicBool, true);
 			injector::WriteMemory(0x4A09EC, &CinematicBool, true);
-			injector::WriteMemory(0x4A1D25, &CinematicBool, true);
 			injector::WriteMemory(0x538AE1, &CinematicBool, true);
 			injector::WriteMemory(0x54F0E7, &CinematicBool, true);
 			injector::WriteMemory(0x55002E, &CinematicBool, true);
@@ -264,7 +333,15 @@ void Init()
 			injector::WriteMemory(0x8C7732, &CinematicBool, true);
 			injector::WriteMemory(0x8CA22C, &CinematicBool, true);
 			injector::WriteMemory(0x8CD62B, &CinematicBool, true);
-			injector::WriteMemory(0x8E55DE, &CinematicBool, true);
+			/*
+			injector::WriteMemory<uint8_t>(0x010EB850, 0x01, true); // Writes directly to "cinematic" address. Don't do this.
+			injector::WriteMemory(0x4143F8, &CinematicBool, true); // Redundant
+			injector::WriteMemory(0x4146A2, &CinematicBool, true); // Redundant
+			injector::WriteMemory(0x415B06, &CinematicBool, true); // Disables headlightt shadows and overwrites other settings
+			injector::WriteMemory(0x4A1D25, &CinematicBool, true); // Unknown
+			injector::WriteMemory(0x571AC3, &CinematicBool, true); // Causes freeze when loading a race
+			injector::WriteMemory(0x8E55DE, &CinematicBool, true); // Unknown
+			*/
 		}
 
 		if (AutoRefreshGraphics)
@@ -276,9 +353,14 @@ void Init()
 			injector::MakeNOP(0x476F28, 1, true);
 		}
 
+		if (HighShadowRefreshRate)
+		{
+			injector::MakeNOP(0x8A8FA7, 2, true);
+		}
+
 		if (MotionBlurStrength >= 0)
 		{
-			MotionBlurMultiplier = MotionBlurStrength * 0.1f;
+			MotionBlurMultiplier = (MotionBlurStrength * 0.1f);
 
 			if (MotionBlurMultiplier > 1.0f)
 			{
@@ -327,8 +409,14 @@ void Init()
 
 		// if (ToggleScreenDirt)
 		{
-			injector::MakeJMP(0x5C42F9, ToggleScreenDirtCodeCave, true);
-			injector::MakeNOP(0x5C42FE, 1, true);
+			injector::MakeJMP(0x5C12C0, ToggleScreenDirtCodeCave, true);
+			injector::MakeNOP(0x5C12C5, 10, true);
+		}
+
+		// if (ToggleTimeOfDay)
+		{
+			injector::MakeCALL(0x8B4C0A, ToggleTimeOfDayCodeCave, true);
+			injector::MakeNOP(0x8B4C0F, 3, true);
 		}
 	}
 }
@@ -348,7 +436,7 @@ BOOL APIENTRY DllMain(HMODULE /*hModule*/, DWORD reason, LPVOID /*lpReserved*/)
 
 		else
 		{
-			MessageBoxA(NULL, "This .exe is not supported.\nPlease use Origin v1.5 NFS13.exe (13,0 MB (13,684,056 bytes)).", "NFSMW2012 HD Effects By Aero_", MB_ICONERROR);
+			MessageBoxA(NULL, "This .exe is not supported.\nPlease use Origin or Steam v1.5 NFS13.exe (13,0 MB (13,684,056 bytes)).", "NFSMW2012 HD Effects by Aero_", MB_ICONERROR);
 			return FALSE;
 		}
 	}
