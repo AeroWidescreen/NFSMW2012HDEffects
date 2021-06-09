@@ -31,7 +31,7 @@ void Init()
 	// View Distance
 	WorldDistance = iniReader.ReadFloat("VIEW DISTANCE", "WorldDistance", 15000.0f);
 	WaterReflectionDistance = iniReader.ReadFloat("VIEW DISTANCE", "WaterReflectionDistance", 1000.0f);
-	VehicleReflectionDistance = iniReader.ReadFloat("VIEW DISTANCE", "VehicleReflectionDistance", 500.0f);
+	VehicleReflectionDistance = iniReader.ReadFloat("VIEW DISTANCE", "VehicleReflectionDistance", 400.0f);
 
 	// Gameplay
 	EnableHiddenCameras = iniReader.ReadInteger("GAMEPLAY", "EnableHiddenCameras", 1);
@@ -53,8 +53,6 @@ void Init()
 	ToggleScreenDirthotkey = iniReader.ReadInteger("HOTKEYS", "ToggleScreenDirthotkey", 118); // F7
 	ToggleTimeOfDayhotkey = iniReader.ReadInteger("HOTKEYS", "ToggleTimeOfDayhotkey", 119); // F8
 
-
-	// Multiplayer Check 
 	{
 		injector::MakeJMP(0x4C1EC5, MultiplayerCheckCodeCave, true);
 		injector::MakeNOP(0x4C1ECA, 4, true);
@@ -244,9 +242,10 @@ void Init()
 		if (EnableHiddenCameras)
 		{
 			// Discovered by _mRally2
+			// Enables Hidden Camera Views
 			injector::MakeCALL(0x846922, HiddenCameraCodeCave);
 			injector::MakeNOP(0x0846927, 23, true);
-			// Corrected Hood Cam values
+			// Corrects Hood Cam Settings
 			injector::MakeCALL(0x5C4830, Front_HoodCamSettingsCodeCave);
 			injector::MakeNOP(0x5C4835, 13, true);
 			injector::MakeCALL(0x5C4854, Rear_HoodCamSettingsCodeCave);
@@ -307,9 +306,14 @@ void Init()
 			
 			// CinemeticMode
 			static bool CinematicBool = CinematicMode;
+			injector::WriteMemory<uint8_t>(0x010EB850, 0x01, true); // Writes directly to "cinematic" address.
+			injector::WriteMemory<uint8_t>(0x414E60, 0xEB, true); // Prevents settings from saving
+			injector::WriteMemory<uint8_t>(0x415B0B, 0xEB, true); // Disables headlight shadows and overwrites other settings
+			injector::WriteMemory<uint8_t>(0x571AC9, 0xEB, true); // Causes freeze when loading a race
+
+			/*
 			injector::WriteMemory(0x414901, &CinematicBool, true);
 			injector::WriteMemory(0x4149B4, &CinematicBool, true);
-			injector::WriteMemory(0x414E58, &CinematicBool, true);
 			injector::WriteMemory(0x496ECE, &CinematicBool, true);
 			injector::WriteMemory(0x4A09EC, &CinematicBool, true);
 			injector::WriteMemory(0x538AE1, &CinematicBool, true);
@@ -333,11 +337,10 @@ void Init()
 			injector::WriteMemory(0x8C7732, &CinematicBool, true);
 			injector::WriteMemory(0x8CA22C, &CinematicBool, true);
 			injector::WriteMemory(0x8CD62B, &CinematicBool, true);
-			/*
-			injector::WriteMemory<uint8_t>(0x010EB850, 0x01, true); // Writes directly to "cinematic" address. Don't do this.
 			injector::WriteMemory(0x4143F8, &CinematicBool, true); // Redundant
 			injector::WriteMemory(0x4146A2, &CinematicBool, true); // Redundant
-			injector::WriteMemory(0x415B06, &CinematicBool, true); // Disables headlightt shadows and overwrites other settings
+			injector::WriteMemory(0x414E58, &CinematicBool, true); // Prevents settings from saving
+			injector::WriteMemory(0x415B06, &CinematicBool, true); // Disables headlight shadows and overwrites other settings
 			injector::WriteMemory(0x4A1D25, &CinematicBool, true); // Unknown
 			injector::WriteMemory(0x571AC3, &CinematicBool, true); // Causes freeze when loading a race
 			injector::WriteMemory(0x8E55DE, &CinematicBool, true); // Unknown
