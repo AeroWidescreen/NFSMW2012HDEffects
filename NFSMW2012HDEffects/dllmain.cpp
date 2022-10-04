@@ -49,7 +49,7 @@ void Init()
 	// Hotkeys
 	ToggleHUD = iniReader.ReadInteger("HOTKEYS", "ToggleHUD", 1);
 	ToggleHUDhotkey = iniReader.ReadInteger("HOTKEYS", "ToggleHUDhotkey", 117); // F6
-	ToggleScreenDirt = iniReader.ReadInteger("GENERAL", "ToggleScreenDirt", 1);
+	ToggleScreenDirt = iniReader.ReadInteger("HOTKEYS", "ToggleScreenDirt", 1);
 	ToggleScreenDirthotkey = iniReader.ReadInteger("HOTKEYS", "ToggleScreenDirthotkey", 118); // F7
 	ToggleTimeOfDayhotkey = iniReader.ReadInteger("HOTKEYS", "ToggleTimeOfDayhotkey", 119); // F8
 
@@ -439,7 +439,7 @@ BOOL APIENTRY DllMain(HMODULE /*hModule*/, DWORD reason, LPVOID /*lpReserved*/)
 
 		else
 		{
-			MessageBoxA(NULL, "This .exe is not supported.\nPlease use Origin or Steam v1.5 NFS13.exe (13,0 MB (13,684,056 bytes)).", "NFSMW2012 HD Effects by Aero_", MB_ICONERROR);
+			MessageBoxA(NULL, "This .exe is not supported.\nPlease use Origin or Steam v1.5 NFS13.exe (13.0 MB (13,684,056 bytes)).", "NFSMW2012 HD Effects by Aero_", MB_ICONERROR);
 			return FALSE;
 		}
 	}
