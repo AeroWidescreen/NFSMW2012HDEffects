@@ -47,7 +47,7 @@ Q: Does CinematicMode allow me to control the camera?
 A: No, it improves the graphics. It does nothing else.  
 
 Q: Why do reflections still look blurry when viewed at a distance?  
-A: This is due to mipmapping and materials. I could make them sharper, but this will effectively break the way the materials are rendered.  
+A: This is due to mipmapping and materials. Applying 16x anisotropic filtering in your control panel will improve the quality, but I've only been able to verify this for NVIDIA graphics cards.  
 
 Q: Why does WreckResistance not work during online multiplayer?  
 A: I don't support multiplayer cheating of any kind. This feature was added to improve the singleplayer experience.  
