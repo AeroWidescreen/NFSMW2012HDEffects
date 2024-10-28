@@ -54,7 +54,8 @@ A: I don't support multiplayer cheating of any kind. This feature was added to i
 
 ## Credits
 [Aero_](https://github.com/AeroWidescreen) : Creator of NFSMW2012 HD Effects.  
-[ThirteenAG](https://github.com/ThirteenAG) : Creator of Ultimate-ASI-Loader.  
+[ExOpts Team](https://github.com/ExOptsTeam) : This project is based on Extra Options and it wouldn't exist without them.  
+[ThirteenAG](https://github.com/ThirteenAG) : Ultimate-ASI-Loader.  
 
 ## Thanks
 [mRally2](https://nfsmods.xyz/usermods/3237)  
