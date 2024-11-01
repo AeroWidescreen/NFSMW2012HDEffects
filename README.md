@@ -35,10 +35,10 @@ Q: What version of the game is this compatible with?
 A: This has been tested using the official Steam and Origin releases, version 1.5.  
 
 Q: What are the system requirements?  
-A: For 1080p, a GTX 1060 / RX 480 should be enough for the settings I've provided. Higher resolutions will require more powerful hardware.  
+A: For 1080p, a GTX 1060 / RX 480 should be enough for the default configuration. Higher resolutions will require more powerful hardware.  
 
 Q: My PC isn't very good, can I still use this?  
-A: All settings can be adjusted in the INI file. If your PC was already capable of playing this game, you can basically get the same experience but with the benefits provided by this mod.  
+A: All settings can be adjusted in the INI file. If your PC was already capable of playing the game, you can basically get the same experience but with the benefits provided by this mod.  
 
 Q: What is CinematicMode?  
 A: It's a hidden setting that improves the graphics beyond what was originally possible. I suspect it was used for creating trailers and screenshots based on its behavior.   
