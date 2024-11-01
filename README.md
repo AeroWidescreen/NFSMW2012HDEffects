@@ -7,28 +7,25 @@
 4. Play.  
 
 ## Features   
-VehicleReflectionRes : Controls the resolution of vehicle reflections.  
-WaterReflectionRes : Controls the resolution of water reflections.  
-ShadowRes : Controls the resolution of world shadows.  
-HeadlightShadowRes : Controls the resolution of shadows cast by headlights.  
-ReflectionShadowRes : Controls the resolution of shadows used in reflections.  
-WorldDistance : Controls the view distance of the entire game world.  
-WaterReflectionDistance : Controls the view distance of water reflections.  
-VehicleReflectionDistance : Controls the view distance of vehicle reflections.  
-EnableHiddenCameras : Enables unused camera modes.  
-TimeCycleSpeed : Multiplier that determines how quickly the world transitions from to day to night.  
-WreckResistance : Multiplier that determines how durable your car is. Does not work during online multiplayer.  
-CinematicMode : Enables a hidden setting that improves the level of detail, resolution, and quality of various effects.  
-AutoRefreshGraphics : Solves an issue that caused grass, bushes, and trees to not render until the resolution was changed.  
-HighShadowRefreshRate : Shadows will update in real-time rather than several second intervals.  
-MotionBlurStrength : Controls the intensity of the motion blur effect and improves consistency.  
-SetReflectionShadow : Allows users to enable or disable reflection shadows without affecting other shadows.  
-SetDOF : Allows users to enable or disable depth of field without affecting motion blur.  
-ToggleHUD : Determines if the HUD is enabled at launch.  
-ToggleHUDhotkey : Controls the ToggleHUD setting while playing.  
-ToggleScreenDirt : Determines if the Screen Dirt effect is enabled at launch.  
-ToggleScreenDirthotkey : Controls the ToggleScreenDirt setting while playing.  
-ToggleTimeOfDayhotkey : Allows users to cycle through midnight, dawn, sunrise, midday, sunset, and dusk.  
+- VehicleReflectionRes : Controls the resolution of vehicle reflections.  
+- WaterReflectionRes : Controls the resolution of water reflections.  
+- ShadowRes : Controls the resolution of world shadows.  
+- HeadlightShadowRes : Controls the resolution of shadows cast by headlights.  
+- ReflectionShadowRes : Controls the resolution of shadows used in reflections.  
+- WorldDistance : Controls the view distance of the entire game world.  
+- WaterReflectionDistance : Controls the view distance of water reflections.  
+- VehicleReflectionDistance : Controls the view distance of vehicle reflections.  
+- EnableHiddenCameras : Enables unused camera modes.  
+- TimeCycleSpeed : Multiplier that determines how quickly the world transitions from to day to night.  
+- WreckResistance : Multiplier that determines how durable your car is. Does not work during online multiplayer.  
+- CinematicMode : Enables a hidden setting that improves the level of detail, resolution, and quality of various effects.  
+- AutoRefreshGraphics : Solves an issue that caused grass, bushes, and trees to not render until the resolution was changed.  
+- HighShadowRefreshRate : Shadows will update in real-time rather than several second intervals.  
+- MotionBlurStrength : Controls the intensity of the motion blur effect and improves consistency.  
+- SetReflectionShadow : Allows users to enable or disable reflection shadows without affecting other shadows.  
+- SetDOF : Allows users to enable or disable depth of field without affecting motion blur.  
+- ToggleHUD : Controls the visibility of the HUD.  
+- ToggleScreenDirt : Controls the visibility of the Screen Dirt effect.  
 
 ## FAQ
 Q: What version of the game is this compatible with?  
